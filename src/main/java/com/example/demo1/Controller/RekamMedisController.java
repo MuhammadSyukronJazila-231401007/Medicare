@@ -1,5 +1,6 @@
 package com.example.demo1.Controller;
 
+import com.example.demo1.Model.Dokter;
 import com.example.demo1.Model.Pasien;
 import com.example.demo1.Model.Pengguna;
 import com.example.demo1.Model.RekamMedis;
@@ -121,8 +122,8 @@ public class RekamMedisController {
 
     @FXML
     public void initialize() {
-        username.setText(PenggunaSekarang.penggunaSekarang.username);
-        peran.setText(PenggunaSekarang.penggunaSekarang.peran);
+        username.setText(PenggunaSekarang.penggunaSekarang.getUsername());
+        peran.setText(PenggunaSekarang.penggunaSekarang.getPeran());
 
         labelTambah.setGraphic(new FontIcon("fas-plus") {{
             setIconColor(Color.WHITE);
@@ -228,7 +229,7 @@ public class RekamMedisController {
 
         // ComboBox untuk memilih Nama Dokter dari tabel Dokter
         ComboBox<String> dokterComboBox = new ComboBox<>();
-        dokterComboBox.setItems(FXCollections.observableArrayList(Pengguna.getNamaDokter())); // Ambil nama dokter dari pengguna dengan peran "Dokter"
+        dokterComboBox.setItems(FXCollections.observableArrayList(Dokter.getNamaDokter())); // Ambil nama dokter dari pengguna dengan peran "Dokter"
         dokterComboBox.setPromptText("Pilih Dokter");
 
         // Input field untuk Diagnosa
@@ -307,7 +308,7 @@ public class RekamMedisController {
 
         // ComboBox untuk memilih Nama Dokter dari tabel Dokter
         ComboBox<String> dokterComboBox = new ComboBox<>();
-        dokterComboBox.setItems(FXCollections.observableArrayList(Pengguna.getNamaDokter())); // Ambil nama dokter dari pengguna dengan peran "Dokter"
+        dokterComboBox.setItems(FXCollections.observableArrayList(Dokter.getNamaDokter())); // Ambil nama dokter dari pengguna dengan peran "Dokter"
         dokterComboBox.setValue(rekamMedis.getDokter()); // Set nilai default sesuai data rekam medis
         dokterComboBox.setPromptText("Pilih Dokter");
 

@@ -30,45 +30,35 @@ public class MySQLConnection {
         }
     }
 
-    // Method untuk mengeksekusi INSERT, UPDATE, DELETE
-//    public int executeUpdate(String query) {
-//        try (Statement statement = connection.createStatement()) {
-//            return statement.executeUpdate(query);
+//    // Method untuk mengeksekusi query SELECT dan mengembalikan hasilnya dalam List of Map
+//    public List<Map<String, String>> executeQuery(String query) {
+//        List<Map<String, String>> results = new ArrayList<>();
+//        try (Statement statement = connection.createStatement();
+//             ResultSet resultSet = statement.executeQuery(query)) {
+//
+//            ResultSetMetaData metaData = resultSet.getMetaData();
+//            int columnCount = metaData.getColumnCount();
+//
+//            while (resultSet.next()) {
+//                Map<String, String> row = new HashMap<>();
+//                for (int i = 1; i <= columnCount; i++) {
+//                    row.put(metaData.getColumnName(i), resultSet.getString(i));
+//                }
+//                results.add(row);
+//            }
 //        } catch (SQLException e) {
 //            e.printStackTrace();
 //        }
-//        return 0;
+//        return results;
 //    }
-
-    // Method untuk mengeksekusi query SELECT dan mengembalikan hasilnya dalam List of Map
-    public List<Map<String, String>> executeQuery(String query) {
-        List<Map<String, String>> results = new ArrayList<>();
-        try (Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query)) {
-
-            ResultSetMetaData metaData = resultSet.getMetaData();
-            int columnCount = metaData.getColumnCount();
-
-            while (resultSet.next()) {
-                Map<String, String> row = new HashMap<>();
-                for (int i = 1; i <= columnCount; i++) {
-                    row.put(metaData.getColumnName(i), resultSet.getString(i));
-                }
-                results.add(row);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return results;
-    }
-
-    public static void main(String[] args) {
-        MySQLConnection db = new MySQLConnection();
-
-        List<Map<String, String>> users = db.executeQuery("SELECT * FROM users");
-        for (Map<String, String> user : users) {
-            System.out.println(user.get("nama") + " : " + user.get("email"));
-        }
-        db.closeConnection();
-    }
+//
+//    public static void main(String[] args) {
+//        MySQLConnection db = new MySQLConnection();
+//
+//        List<Map<String, String>> users = db.executeQuery("SELECT * FROM users");
+//        for (Map<String, String> user : users) {
+//            System.out.println(user.get("nama") + " : " + user.get("email"));
+//        }
+//        db.closeConnection();
+//    }
 }

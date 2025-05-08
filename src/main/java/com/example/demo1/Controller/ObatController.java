@@ -134,8 +134,8 @@ public class ObatController {
 
     @FXML
     public void initialize() {
-        username.setText(PenggunaSekarang.penggunaSekarang.username);
-        peran.setText(PenggunaSekarang.penggunaSekarang.peran);
+        username.setText(PenggunaSekarang.penggunaSekarang.getUsername());
+        peran.setText(PenggunaSekarang.penggunaSekarang.getPeran());
 
         labelTambah.setGraphic(new FontIcon("fas-plus") {{
             setIconColor(Color.WHITE);

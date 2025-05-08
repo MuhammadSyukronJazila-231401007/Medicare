@@ -10,17 +10,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Pengguna {
-    public String id_pengguna;
-    public String nama;
-    public String username;
-    public String password;
-    public String no_hp;
-    public String email;
-    public String peran;
-    private String jadwal;
-    private String keahlian;
+    private String id_pengguna;
+    private String nama;
+    private String username;
+    private String password;
+    private String no_hp;
+    private String email;
+    private String peran;
+    private String jadwal = "kosong";
 
-    public Pengguna(String id, String nama, String username, String password, String noHp, String email, String peran, String keahlian, String jadwal) {
+    public Pengguna(String id, String nama, String username, String password, String noHp, String email, String peran, String jadwal) {
         this.id_pengguna = id;
         this.nama = nama;
         this.username = username;
@@ -28,13 +27,17 @@ public class Pengguna {
         this.no_hp = noHp;
         this.email = email;
         this.peran = peran;
-        this.keahlian = keahlian;
         this.jadwal = jadwal;
     }
 
-    // Constructor dengan default keahlian & jadwal
     public Pengguna(String id, String nama, String username, String password, String noHp, String email, String peran) {
-        this(id, nama, username, password, noHp, email, peran, "kosong", "kosong");
+        this.id_pengguna = id;
+        this.nama = nama;
+        this.username = username;
+        this.password = password;
+        this.no_hp = noHp;
+        this.email = email;
+        this.peran = peran;
     }
 
     public boolean deletePengguna() {
@@ -69,7 +72,7 @@ public class Pengguna {
             preparedStatement.setString(5, no_hp);
             preparedStatement.setString(6, email);
             preparedStatement.setString(7, peran);
-            preparedStatement.setString(8, keahlian);
+            preparedStatement.setString(8, "kosong");
             preparedStatement.setString(9, jadwal);
 
             return preparedStatement.executeUpdate() > 0; // Return true jika berhasil
@@ -89,23 +92,63 @@ public class Pengguna {
 
             while (resultSet.next()) {
                 String peran = resultSet.getString("peran");
-                Dokter dokter = new Dokter(
-                        resultSet.getString("id_pengguna"),
-                        resultSet.getString("nama"),
-                        resultSet.getString("username"),
-                        resultSet.getString("password"),
-                        resultSet.getString("no_hp"),
-                        resultSet.getString("email"),
-                        peran,
-                        resultSet.getString("jadwal"),
-                        resultSet.getString("keahlian")
-                );
-                daftarPengguna.add(dokter);
+                Pengguna akun;
+                if(peran.equals("Dokter")){
+                    akun = new Dokter(
+                            resultSet.getString("id_pengguna"),
+                            resultSet.getString("nama"),
+                            resultSet.getString("username"),
+                            resultSet.getString("password"),
+                            resultSet.getString("no_hp"),
+                            resultSet.getString("email"),
+                            peran,
+                            resultSet.getString("jadwal"),
+                            resultSet.getString("keahlian")
+                    );
+                }else{
+                    akun = new Pengguna(
+                            resultSet.getString("id_pengguna"),
+                            resultSet.getString("nama"),
+                            resultSet.getString("username"),
+                            resultSet.getString("password"),
+                            resultSet.getString("no_hp"),
+                            resultSet.getString("email"),
+                            peran,
+                            resultSet.getString("jadwal")
+                    );
+                }
+                daftarPengguna.add(akun);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return daftarPengguna;
+    }
+
+    public boolean editPengguna() {
+        String query = """
+        UPDATE pengguna 
+        SET nama = ?, no_hp = ?, email = ?, peran = ?, keahlian = ?, jadwal = ?, password = ?
+        WHERE id_pengguna = ?
+        """;
+
+        try (Connection connection = MySQLConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, this.nama);
+            preparedStatement.setString(2, this.no_hp);
+            preparedStatement.setString(3, this.email);
+            preparedStatement.setString(4, this.peran);
+            preparedStatement.setString(5, "kosong");
+            preparedStatement.setString(6, this.jadwal);
+            preparedStatement.setString(7, this.password);
+            preparedStatement.setString(8, this.id_pengguna);  // Menggunakan username dari objek ini
+
+            return preparedStatement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public static boolean verifLogin(String username, String password) {
@@ -132,95 +175,6 @@ public class Pengguna {
         return false;
     }
 
-    public boolean editPengguna() {
-        String query = """
-        UPDATE pengguna 
-        SET nama = ?, no_hp = ?, email = ?, peran = ?, keahlian = ?, jadwal = ?, password = ?
-        WHERE id_pengguna = ?
-        """;
-
-        try (Connection connection = MySQLConnection.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-
-            preparedStatement.setString(1, this.nama);
-            preparedStatement.setString(2, this.no_hp);
-            preparedStatement.setString(3, this.email);
-            preparedStatement.setString(4, this.peran);
-            preparedStatement.setString(5, this.keahlian);
-            preparedStatement.setString(6, this.jadwal);
-            preparedStatement.setString(7, this.password);
-            preparedStatement.setString(8, this.id_pengguna);  // Menggunakan username dari objek ini
-
-            return preparedStatement.executeUpdate() > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    public static List<String> getNamaDokter() {
-        List<String> daftarNamaDokter = new ArrayList<>();
-        String query = "SELECT nama FROM pengguna WHERE peran = 'Dokter'"; // Mengambil nama pengguna dengan peran Dokter
-
-        try (Connection connection = MySQLConnection.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query)) {
-
-            // Ambil nama dokter dari hasil query
-            while (resultSet.next()) {
-                String namaDokter = resultSet.getString("nama");
-                daftarNamaDokter.add(namaDokter);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return daftarNamaDokter;
-    }
-
-    public static String getJadwalDokter(String namaDokter) {
-        String jadwalDokter = null;
-        String query = "SELECT jadwal FROM pengguna WHERE nama = ? AND peran = 'Dokter'"; // Query untuk mengambil jadwal dokter
-
-        try (Connection connection = MySQLConnection.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
-
-            // Set parameter nama dokter
-            statement.setString(1, namaDokter);
-
-            // Eksekusi query
-            try (ResultSet resultSet = statement.executeQuery()) {
-                // Ambil jadwal dokter dari hasil query
-                if (resultSet.next()) {
-                    jadwalDokter = resultSet.getString("jadwal");
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return jadwalDokter; // Kembalikan jadwal dokter, atau null jika tidak ditemukan
-    }
-
-    public static boolean isJadwalDokterValid(String namaDokter, String waktuPemeriksaan) {
-        String jadwalDokter = getJadwalDokter(namaDokter);
-        try {
-            String[] jadwal = jadwalDokter.split("-");
-            String jadwalMulai = jadwal[0];
-            String jadwalSelesai = jadwal[1];
-
-            // Mengubah waktu menjadi format LocalTime
-            LocalTime waktuMulai = LocalTime.parse(jadwalMulai);
-            LocalTime waktuSelesai = LocalTime.parse(jadwalSelesai);
-            LocalTime waktuPemeriksaanTime = LocalTime.parse(waktuPemeriksaan);
-
-            // Cek apakah waktu pemeriksaan berada dalam rentang waktu dokter
-            return !waktuPemeriksaanTime.isBefore(waktuMulai) && !waktuPemeriksaanTime.isAfter(waktuSelesai);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false; // Jika format waktu tidak valid
-        }
-    }
-
     public String getIdPengguna() {
         return id_pengguna;
     }
@@ -245,8 +199,4 @@ public class Pengguna {
     public String getJadwal() {
         return jadwal;
     }
-    public String getKeahlian() {
-        return keahlian;
-    }
-
 }

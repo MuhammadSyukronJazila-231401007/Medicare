@@ -69,7 +69,7 @@ public class SideBar {
             return true;
         }
 
-        String peran = PenggunaSekarang.penggunaSekarang.peran;
+        String peran = PenggunaSekarang.penggunaSekarang.getPeran();
         Set<String> daftarHalaman = aksesHalaman.get(peran);
 
         return daftarHalaman == null || daftarHalaman.contains(halaman);

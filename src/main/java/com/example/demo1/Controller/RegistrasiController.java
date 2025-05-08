@@ -57,7 +57,7 @@ public class RegistrasiController {
         String peran = peranComboBox.getValue();
 
         if(!nama.isBlank() && !email.isBlank() && !noHp.isBlank() && !password.isBlank() && !peran.isBlank()){
-            Pengguna pengguna = new Pengguna(UUID.randomUUID().toString(),nama,username, password,noHp,email,peran);
+            Pengguna pengguna = new Pengguna(UUID.randomUUID().toString(), nama, username, password, noHp, email, peran);
             if(pengguna.tambahPengguna()){
                 showPopup();
                 clearField();

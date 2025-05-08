@@ -52,37 +52,4 @@ public class loginController {
             e.printStackTrace();
         }
     }
-
-    public static void main(String[] args) {
-//        if(Pengguna.verifLogin("syukron12","admin123")){
-//            System.out.println("Login");
-//        }else{
-//            System.out.println("Slaah");
-//        }
-    }
-
-//    public void showPopupCustom() {
-//        try {
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/demo1/popup.fxml"));
-//            Parent root = loader.load();
-//
-//            Stage popupStage = new Stage();
-//            popupStage.initModality(Modality.APPLICATION_MODAL); // Mencegah interaksi dengan jendela lain
-//            popupStage.setTitle("Popup Kustom");
-//            popupStage.setScene(new Scene(root));
-//            popupStage.showAndWait(); // Tunggu sampai popup ditutup
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
-
-//    public void showInputDialogBawaan() {
-//        TextInputDialog dialog = new TextInputDialog();
-//        dialog.setTitle("Input Dialog");
-//        dialog.setHeaderText("Masukkan Nama Anda");
-//        dialog.setContentText("Nama:");
-//
-//        Optional<String> result = dialog.showAndWait();
-//        result.ifPresent(name -> System.out.println("Nama yang dimasukkan: " + name));
-//    }
 }

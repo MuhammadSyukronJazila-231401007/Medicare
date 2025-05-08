@@ -1,8 +1,6 @@
 package com.example.demo1.Controller;
 
-import com.example.demo1.Model.Obat;
-import com.example.demo1.Model.Pasien;
-import com.example.demo1.Model.Pengguna;
+import com.example.demo1.Model.*;
 import com.example.demo1.PenggunaSekarang;
 import com.example.demo1.Utils.Hash;
 import com.example.demo1.Utils.SideBar;
@@ -21,7 +19,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import org.kordamp.ikonli.javafx.FontIcon;
-import com.example.demo1.Model.Resep;
 
 import java.util.Optional;
 
@@ -137,8 +134,8 @@ public class ResepController {
 
     @FXML
     public void initialize() {
-        username.setText(PenggunaSekarang.penggunaSekarang.username);
-        peran.setText(PenggunaSekarang.penggunaSekarang.peran);
+        username.setText(PenggunaSekarang.penggunaSekarang.getUsername());
+        peran.setText(PenggunaSekarang.penggunaSekarang.getPeran());
 
         labelTambah.setGraphic(new FontIcon("fas-plus") {{
             setIconColor(Color.WHITE);
@@ -243,7 +240,7 @@ public class ResepController {
 
         // ComboBox untuk memilih dokter (diambil dari pengguna dengan peran "Dokter")
         ComboBox<String> dokterComboBox = new ComboBox<>();
-        dokterComboBox.setItems(FXCollections.observableArrayList(Pengguna.getNamaDokter())); // Ambil nama dokter
+        dokterComboBox.setItems(FXCollections.observableArrayList(Dokter.getNamaDokter())); // Ambil nama dokter
         dokterComboBox.setPromptText("Pilih Dokter");
 
         // ListView untuk memilih obat (multi-select)
@@ -318,7 +315,7 @@ public class ResepController {
 
         // ComboBox untuk memilih dokter (diambil dari pengguna dengan peran "Dokter")
         ComboBox<String> dokterComboBox = new ComboBox<>();
-        dokterComboBox.setItems(FXCollections.observableArrayList(Pengguna.getNamaDokter())); // Ambil nama dokter
+        dokterComboBox.setItems(FXCollections.observableArrayList(Dokter.getNamaDokter())); // Ambil nama dokter
         dokterComboBox.setValue(resep.getDokter()); // Set nilai default sesuai data resep
         dokterComboBox.setPromptText("Pilih Dokter");
 

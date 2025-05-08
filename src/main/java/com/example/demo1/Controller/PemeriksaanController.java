@@ -1,9 +1,6 @@
 package com.example.demo1.Controller;
 
-import com.example.demo1.Model.Kamar;
-import com.example.demo1.Model.Pasien;
-import com.example.demo1.Model.Pemeriksaan;
-import com.example.demo1.Model.Pengguna;
+import com.example.demo1.Model.*;
 import com.example.demo1.PenggunaSekarang;
 import com.example.demo1.Utils.Hash;
 import com.example.demo1.Utils.SideBar;
@@ -136,8 +133,8 @@ public class PemeriksaanController {
 
     @FXML
     public void initialize() {
-        username.setText(PenggunaSekarang.penggunaSekarang.username);
-        peran.setText(PenggunaSekarang.penggunaSekarang.peran);
+        username.setText(PenggunaSekarang.penggunaSekarang.getUsername());
+        peran.setText(PenggunaSekarang.penggunaSekarang.getPeran());
 
         labelTambah.setGraphic(new FontIcon("fas-plus") {{
             setIconColor(Color.WHITE);
@@ -242,7 +239,7 @@ public class PemeriksaanController {
 
         // ComboBox untuk memilih dokter (diambil dari pengguna dengan peran "Dokter")
         ComboBox<String> dokterComboBox = new ComboBox<>();
-        dokterComboBox.setItems(FXCollections.observableArrayList(Pengguna.getNamaDokter())); // Ambil nama dokter
+        dokterComboBox.setItems(FXCollections.observableArrayList(Dokter.getNamaDokter())); // Ambil nama dokter
         dokterComboBox.setPromptText("Pilih Dokter");
 
         // ComboBox untuk memilih nama ruangan (yang jenis_ruangan = 'Ruang Pemeriksaan')
@@ -293,7 +290,7 @@ public class PemeriksaanController {
                     String jadwal = tanggal + " " + waktu;
                     Double biaya = Double.parseDouble(biayaPemeriksaan.getText()); // Ambil biaya dari TextField dan konversi ke Double
 
-                    if (!Pengguna.isJadwalDokterValid(dokter, waktu)) {
+                    if (!Dokter.isJadwalDokterValid(dokter, waktu)) {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("Jadwal Tidak Valid");
                         alert.setHeaderText(null);
@@ -351,7 +348,7 @@ public class PemeriksaanController {
 
         // ComboBox untuk memilih dokter
         ComboBox<String> dokterComboBox = new ComboBox<>();
-        dokterComboBox.setItems(FXCollections.observableArrayList(Pengguna.getNamaDokter()));
+        dokterComboBox.setItems(FXCollections.observableArrayList(Dokter.getNamaDokter()));
         dokterComboBox.setValue(pemeriksaanLama.getNamaDokter());
         dokterComboBox.setPromptText("Pilih Dokter");
 
@@ -394,7 +391,7 @@ public class PemeriksaanController {
                     String jadwal = tanggal + " " + waktu;
                     Double biaya = Double.parseDouble(biayaPemeriksaan.getText());
 
-                    if (!Pengguna.isJadwalDokterValid(dokter, waktu)) {
+                    if (!Dokter.isJadwalDokterValid(dokter, waktu)) {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("Jadwal Tidak Valid");
                         alert.setHeaderText(null);
