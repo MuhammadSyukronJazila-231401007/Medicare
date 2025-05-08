@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="316.0" prefWidth="555.0" style="-fx-background-color: #F9F9F9;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo1.Controller.loginController">
+   <children>
+      <ImageView fitHeight="318.0" fitWidth="290.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../Gambar/Gambar.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="34.0" fitWidth="83.0" layoutX="17.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../Gambar/Group.png" />
+         </image>
+      </ImageView>
+      <Label alignment="CENTER" layoutX="38.0" layoutY="68.0" text="Sistem Manajemen Rumah Sakit" textFill="WHITE">
+         <font>
+            <Font name="Segoe UI Bold" size="14.0" />
+         </font>
+      </Label>
+      <Line endX="-44.333335876464844" endY="7.62939453125E-6" layoutX="140.0" layoutY="92.0" startX="-100.0" stroke="WHITE" strokeLineCap="ROUND" strokeWidth="4.0" />
+      <Text fill="WHITE" layoutX="38.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mengelola operasi rumah sakit secara efisien, termasuk rekam medis pasien, tenaga medis, janji temu, penagihan, dan resep obat." wrappingWidth="212.66666666666674">
+         <font>
+            <Font name="Segoe UI" size="14.0" />
+         </font>
+      </Text>
+      <ToggleButton layoutX="314.0" layoutY="20.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="89.0" style="-fx-background-radius: 20px; -fx-background-color: #3674B5;" text="Login" textFill="WHITE">
+         <font>
+            <Font name="Segoe UI Bold" size="14.0" />
+         </font>
+      </ToggleButton>
+<!--      <ToggleButtonGroup layoutX="345.0" layoutY="163.0" selectionType="SINGLE" />-->
+      <ToggleButton fx:id="registrasiToggleBtn" layoutX="423.0" layoutY="20.0" mnemonicParsing="false" onAction="#registrasiToggleOnAction" prefHeight="34.0" prefWidth="89.0" style="-fx-background-radius: 20px; -fx-background-color: #f9f9f9;" text="Registrasi" textFill="#6c6c6c">
+         <font>
+            <Font name="Segoe UI Bold" size="14.0" />
+         </font>
+      </ToggleButton>
+      <Label layoutX="315.0" layoutY="68.0" text="Username atau Email" textFill="#4a80aa">
+         <font>
+            <Font name="Segoe UI" size="12.0" />
+         </font>
+      </Label>
+      <TextField fx:id="usernameField" layoutX="314.0" layoutY="92.0" prefHeight="25.0" prefWidth="215.0" style="-fx-border-color: #3674B5; -fx-border-radius: 5px;">
+         <font>
+            <Font name="Segoe UI" size="12.0" />
+         </font>
+      </TextField>
+      <Label layoutX="315.0" layoutY="132.0" text="Password" textFill="#4a80aa">
+         <font>
+            <Font name="Segoe UI" size="12.0" />
+         </font>
+      </Label>
+      <PasswordField fx:id="passwordField" layoutX="314.0" layoutY="156.0" prefHeight="25.0" prefWidth="215.0" style="-fx-border-color: #3674B5; -fx-border-radius: 5px;" />
+      <Button fx:id="loginBtn" layoutX="366.0" layoutY="244.0" mnemonicParsing="false" onAction="#loginBtnOnAction" prefHeight="34.0" prefWidth="111.0" style="-fx-background-radius: 5px; -fx-background-color: #3674B5;" text="Login" textFill="WHITE">
+         <font>
+            <Font name="Segoe UI Bold" size="14.0" />
+         </font>
+      </Button>
+      <Label layoutX="457.0" layoutY="189.0" text="Lupa Password?" textFill="#4a80aa">
+         <font>
+            <Font name="Segoe UI" size="10.0" />
+         </font>
+      </Label>
+      <Label fx:id="loginMessage" alignment="CENTER" layoutX="291.0" layoutY="214.0" prefHeight="17.0" prefWidth="263.0" text="     " textFill="RED" />
+   </children>
+</AnchorPane>

@@ -1,0 +1,8 @@
+#registrasiToggleBtn {
+    -fx-background-color: #f9f9f9;
+    -fx-text-fill: #6c6c6c;
+}
+
+#registrasiToggleBtn:hover {
+    -fx-background-color: rgba(249, 249, 249, 0.7); /* Opacity lebih rendah */
+}
